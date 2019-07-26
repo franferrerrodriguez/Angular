@@ -1,0 +1,24 @@
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <a class="navbar-brand" href="#">Menú</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+  
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav mr-auto">
+        <li class="nav-item" routerLinkActive="active">
+          <a class="nav-link" [routerLink]="['home']">Inicio</a>
+        </li>
+        <li class="nav-item" routerLinkActive="active"[routerLinkActiveOptions]="{ __change_detection_hack__: search }">
+          <a class="nav-link" [routerLink]="['heroes', search]">Héroes</a>
+        </li>
+        <li class="nav-item" routerLinkActive="active">
+          <a class="nav-link" [routerLink]="['about']">Info</a>
+        </li>
+      </ul>
+      <form class="form-inline my-2 my-lg-0" (keydown.enter)="$event.preventDefault()">
+        <input class="form-control mr-sm-2" type="search" placeholder="Buscar héroe" aria-label="Buscar héroe" (keyup.enter)="buscarTexto(buscar_texto.value)" #buscar_texto>
+        <button class="btn btn-outline-primary my-2 my-sm-0" type="button" (click)="buscarTexto(buscar_texto.value);">Buscar</button>
+      </form>
+    </div>
+  </nav>

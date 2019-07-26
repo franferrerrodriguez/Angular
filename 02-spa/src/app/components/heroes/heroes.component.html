@@ -1,0 +1,12 @@
+<h1>Héroes <small>Marvel y DC</small></h1>
+
+<div class="alert alert-danger" role="danger" *ngIf="heroes.length === 0">
+  No se han encontrado resultados para el nombre: <b>{{ search }}</b>
+</div>
+
+<!-- Le pasaremos el objeto heroe al componente hijo app-heroe-tarjeta -->
+<!-- Ejecutaremos el evento Emitter del componente hijo "emitirIdHeroe" hacia el método
+verHeroe() del padre -->
+<div class="card-columns">
+  <app-heroe-tarjeta [heroe]="heroe" (emitirIdHeroe)="verHeroe($event)" *ngFor="let heroe of heroes"></app-heroe-tarjeta>
+</div>
