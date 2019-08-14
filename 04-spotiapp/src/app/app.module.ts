@@ -7,6 +7,7 @@ import { ArtistComponent } from './components/artist/artist.component';
 import { NavbarComponent } from './components/shared/navbar/navbar.component';
 import { SearchComponent } from './components/search/search.component';
 import { HttpClientModule } from '@angular/common/http';
+import { AutofocusDirective } from './auto-focus.directive';
 
 @NgModule({
   declarations: [
@@ -14,7 +15,8 @@ import { HttpClientModule } from '@angular/common/http';
     HomeComponent,
     ArtistComponent,
     NavbarComponent,
-    SearchComponent
+    SearchComponent,
+    AutofocusDirective
   ],
   imports: [
     BrowserModule,

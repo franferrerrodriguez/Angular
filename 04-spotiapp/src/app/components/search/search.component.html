@@ -1,5 +1,17 @@
 <div class="row">
   <div class="col">
-    <input #termino type="text" (keyup)="buscar(termino.value)" class="form-control" placeholder="Buscar artista">
+    <input type="text" class="form-control" placeholder="Buscar artista"
+      appAutoFocus 
+      #termino 
+      (keyup)="buscar(termino.value)">
   </div>
 </div>
+
+<div class="card-columns">
+    <div class="card" *ngFor="let item of artistas">
+      <img *ngIf="item.images" [src]="item.images[0].url" class="card-img-top" alt="...">
+      <div class="card-body">
+        <h5 class="card-title">{{ item.name }}</h5>
+      </div>
+    </div>
+  </div>
