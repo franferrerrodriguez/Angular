@@ -19,7 +19,7 @@ export class HomeComponent implements OnInit {
   ngOnInit() {
 
     /*this.token = this.spotifyService.getToken().subscribe(data => {
-      this.token = data;
+      this.token = data; 
     });*/
 
     this.spotifyService.getNewReleases().subscribe(data => {
