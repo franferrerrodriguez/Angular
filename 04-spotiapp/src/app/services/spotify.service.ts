@@ -14,7 +14,7 @@ export class SpotifyService {
   }
 
   private token:string = 
-  "BQAov7P2avDLG8FATYfl7qQNL-ZpLp1MIOeqwzEdRWHMKwHTKRzk7l1a17MdUwU5FGuLVqCRZA70wxCH_00";
+  "BQA_h-U_eiL24RIj1DWfJKi1NWCHeLx4wUWfN-nzU0Wc7rLV-BmCMZlwEFP2qLPJd7D2SmE1yoLYzAwfog8";
 
   getQuery(query:string){
 
@@ -33,14 +33,26 @@ export class SpotifyService {
   getNewReleases():any{
 
     return this.getQuery("browse/new-releases?country=ES&limit=40").pipe(map( (data:any) => {
+      //console.log(data);
       return data.albums.items;
     } ));
+
   }
 
-  search(q:string):any{
+  searchAllArtists(q:string):any{
 
     return this.getQuery(`search?q=${ q }&type=artist&limit=10&offset=5`).pipe(map( (data:any) => {
+      //console.log(data);
       return data.artists.items;
+    } ));
+
+  }
+
+  searchArtistById(id:number):any{
+
+    return this.getQuery(`artists/${ id }`).pipe(map( (data:any) => {
+      //console.log(data);
+      return data;
     } ));
 
   }

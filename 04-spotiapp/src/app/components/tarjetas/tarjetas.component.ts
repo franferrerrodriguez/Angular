@@ -1,4 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-tarjetas',
@@ -9,9 +10,13 @@ export class TarjetasComponent implements OnInit {
 
   @Input() item:any;
 
-  constructor() { }
+  constructor(private router: Router) { }
 
   ngOnInit() {
+  }
+
+  showArtist(artist:any){
+    this.router.navigate(['artist', artist.id]);
   }
 
 }
