@@ -8,6 +8,9 @@ import { NavbarComponent } from './components/shared/navbar/navbar.component';
 import { SearchComponent } from './components/search/search.component';
 import { HttpClientModule } from '@angular/common/http';
 import { AutofocusDirective } from './auto-focus.directive';
+import { CheckimgPipe } from './pipes/checkimg.pipe';
+import { TarjetasComponent } from './components/tarjetas/tarjetas.component';
+import { LoadingComponent } from './components/shared/loading/loading.component';
 
 @NgModule({
   declarations: [
@@ -16,7 +19,10 @@ import { AutofocusDirective } from './auto-focus.directive';
     ArtistComponent,
     NavbarComponent,
     SearchComponent,
-    AutofocusDirective
+    AutofocusDirective,
+    CheckimgPipe,
+    TarjetasComponent,
+    LoadingComponent
   ],
   imports: [
     BrowserModule,
