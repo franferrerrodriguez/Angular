@@ -5,9 +5,11 @@
     <input type="text" class="form-control" placeholder="Buscar artista"
       appAutoFocus 
       #termino 
-      (keyup)="buscar(termino.value)">
+      (keyup)="search(termino.value)">
   </div>
 </div>
+
+<br>
 
 <div class="card-columns">
   <app-tarjetas [item]="item" *ngFor="let item of items"></app-tarjetas>
