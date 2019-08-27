@@ -11,18 +11,15 @@ export class SearchComponent implements OnInit {
   private loading:boolean;
   private items:any[] = [];
 
-  constructor(private spotifyService:SpotifyService) {
-    
-  }
+  constructor(private spotifyService:SpotifyService) { }
 
-  ngOnInit() {
+  ngOnInit() { }
 
-  }
-
-  buscar(termino:string):void{
+  async search(termino:string){
     this.loading = true;
     if(termino){
-      this.spotifyService.searchAllArtists(termino).subscribe(data => {
+      const e = await this.spotifyService.searchAllArtists(termino);
+      e.subscribe(data => {
         this.items = data;
       });
     }else{

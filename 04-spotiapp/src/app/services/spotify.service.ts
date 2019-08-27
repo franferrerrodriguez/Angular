@@ -8,17 +8,28 @@ import { SpotifyTokenService } from './spotify.token.service';
 })
 export class SpotifyService {
 
-  constructor( private httpClient:HttpClient/*, private s:SpotifyTokenService*/ ) { 
-    //this.s.getToken();
+  private url = 'http://localhost/Angular/04-spotiapp/php/token/index.php';
+  private token:string;
+
+  constructor( private httpClient:HttpClient ) { 
     console.log("Servicio Spotify Listo");
   }
 
-  private token:string = 
-  "BQA_h-U_eiL24RIj1DWfJKi1NWCHeLx4wUWfN-nzU0Wc7rLV-BmCMZlwEFP2qLPJd7D2SmE1yoLYzAwfog8";
+  generateToken() {
+    return new Promise(resolve => {
+      this.httpClient.get(this.url)
+      .pipe(map((data:any) => { return data.access_token; }))
+      .subscribe(token => { 
+        //console.log("Generate Token: " + token);
+        this.token = token;
+        resolve();
+      });
+    });
+  }
 
-  getQuery(query:string){
+  async getQuery(query:string){
 
-    //console.log(this.s.token);
+    await this.generateToken();
 
     const URI = `https://api.spotify.com/v1/${ query }`;
 
@@ -30,28 +41,31 @@ export class SpotifyService {
 
   }
 
-  getNewReleases():any{
+  async getNewReleases(){
 
-    return this.getQuery("browse/new-releases?country=ES&limit=40").pipe(map( (data:any) => {
-      //console.log(data);
+    const e = await this.getQuery("browse/new-releases?country=ES&limit=40");
+    return e.pipe(map( (data:any) => {
+      // console.log(data);
       return data.albums.items;
     } ));
 
   }
 
-  searchAllArtists(q:string):any{
+  async searchAllArtists(q:string){
 
-    return this.getQuery(`search?q=${ q }&type=artist&limit=10&offset=5`).pipe(map( (data:any) => {
-      //console.log(data);
+    const e = await this.getQuery(`search?q=${ q }&type=artist&limit=10&offset=5`);
+    return e.pipe(map( (data:any) => {
+      // console.log(data);
       return data.artists.items;
     } ));
 
   }
 
-  searchArtistById(id:number):any{
+  async searchArtistById(id:number){
 
-    return this.getQuery(`artists/${ id }`).pipe(map( (data:any) => {
-      //console.log(data);
+    const e = await this.getQuery(`artists/${ id }`);
+    return e.pipe(map( (data:any) => {
+      console.log(data);
       return data;
     } ));
 

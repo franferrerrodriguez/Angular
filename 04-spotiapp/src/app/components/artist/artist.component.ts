@@ -10,7 +10,7 @@ import { SpotifyService } from '../../services/spotify.service';
 export class ArtistComponent implements OnInit {
 
   private id:number;
-  private artist:any;
+  private artist:any = {};
 
   constructor(private route:ActivatedRoute, private spotifyService:SpotifyService) { 
 
@@ -21,10 +21,13 @@ export class ArtistComponent implements OnInit {
   }
 
   ngOnInit() {
-    console.log(this.id);
+    this.artistInit();
+  }
 
-    this.artist = this.spotifyService.searchArtistById(this.id).subscribe(data => {
-      console.log(data);
+  async artistInit(){
+    const e = await this.spotifyService.searchArtistById(this.id);
+    this.artist = e.subscribe(data => {
+      //console.log(data);
       this.artist = data;
     });
   }
