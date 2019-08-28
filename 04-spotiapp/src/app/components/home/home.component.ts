@@ -16,16 +16,17 @@ export class HomeComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.homeInit();
+    this.getNewReleases();
   }
 
-  async homeInit(){
+  async getNewReleases(){
     const e = await this.spotifyService.getNewReleases();
     e.subscribe(data => {
-      //console.log(data);
+      console.log(data);
       this.items = data;
       this.loading = false;
     });
   };
+  
 
 }

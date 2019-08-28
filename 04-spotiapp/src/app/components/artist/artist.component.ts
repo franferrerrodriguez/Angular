@@ -9,26 +9,38 @@ import { SpotifyService } from '../../services/spotify.service';
 })
 export class ArtistComponent implements OnInit {
 
+  private loading:boolean;
   private id:number;
   private artist:any = {};
+  private topTracks:any[] = [];
 
   constructor(private route:ActivatedRoute, private spotifyService:SpotifyService) { 
-
+    this.loading = true;
     this.route.params.subscribe(params => {
       this.id = params.id;
     })
-
   }
 
   ngOnInit() {
-    this.artistInit();
+    this.getArtistById();
+    this.getTracksByIdArtist();
   }
 
-  async artistInit(){
+  async getArtistById(){
     const e = await this.spotifyService.searchArtistById(this.id);
-    this.artist = e.subscribe(data => {
-      //console.log(data);
-      this.artist = data;
+    e.subscribe(artist => {
+      // console.log(artist);
+      this.artist = artist;
+      this.loading = false;
+    });
+  }
+
+  async getTracksByIdArtist(){
+    const a = await this.spotifyService.searchTracksByIdArtist(this.id);
+    a.subscribe((topTracks:any[]) => {
+      // console.log(topTracks);
+      this.topTracks = topTracks;
+      this.loading = false;
     });
   }
 

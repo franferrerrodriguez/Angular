@@ -23,6 +23,8 @@ export class TarjetasComponent implements OnInit {
       idArtist = item.id;
     }
 
+    console.log(this.router.url);
+
     this.router.navigate(['artist', idArtist]);
   }
 

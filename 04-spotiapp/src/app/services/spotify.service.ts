@@ -42,19 +42,17 @@ export class SpotifyService {
 
   async getNewReleases(){
 
-    const e = await this.getQuery("browse/new-releases?country=ES&limit=40");
+    const e = await this.getQuery(`browse/new-releases?country=ES&limit=40`);
     return e.pipe(map( (data:any) => {
-      // console.log(data);
       return data.albums.items;
     } ));
 
   }
 
-  async searchAllArtists(q:string){
+  async searchAllArtists(search:string){
 
-    const e = await this.getQuery(`search?q=${ q }&type=artist&limit=10&offset=5`);
+    const e = await this.getQuery(`search?q=${ search }&type=artist&limit=15`);
     return e.pipe(map( (data:any) => {
-      // console.log(data);
       return data.artists.items;
     } ));
 
@@ -62,10 +60,15 @@ export class SpotifyService {
 
   async searchArtistById(id:number){
 
-    const e = await this.getQuery(`artists/${ id }`);
+    return await this.getQuery(`artists/${ id }`);
+
+  }
+
+  async searchTracksByIdArtist(id:number){
+
+    const e = await this.getQuery(`artists/${ id }/top-tracks?country=es`);
     return e.pipe(map( (data:any) => {
-      console.log(data);
-      return data;
+      return data.tracks;
     } ));
 
   }
