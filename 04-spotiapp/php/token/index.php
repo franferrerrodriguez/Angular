@@ -23,9 +23,7 @@ $body = array(
 $response = Requests::post($url, $headers, $body);
 
 $body = $response->body;
-$token = json_decode($body)->access_token;
-$token = $body;
 
-echo $token;
+echo $body;
 
 ?>

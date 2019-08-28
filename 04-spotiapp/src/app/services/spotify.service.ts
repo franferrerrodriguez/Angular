@@ -1,7 +1,6 @@
-import { Injectable, OnInit } from '@angular/core';
+import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { map } from 'rxjs/operators';
-import { SpotifyTokenService } from './spotify.token.service';
 
 @Injectable({
   providedIn: 'root'
