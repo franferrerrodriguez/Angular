@@ -11,6 +11,8 @@ import { AutofocusDirective } from './auto-focus.directive';
 import { CheckimgPipe } from './pipes/checkimg.pipe';
 import { TarjetasComponent } from './components/tarjetas/tarjetas.component';
 import { LoadingComponent } from './components/shared/loading/loading.component';
+import { SecureDomPipe } from './pipes/securedom.pipe';
+import { MessageComponent } from './components/shared/message/message.component';
 
 @NgModule({
   declarations: [
@@ -22,7 +24,9 @@ import { LoadingComponent } from './components/shared/loading/loading.component'
     AutofocusDirective,
     CheckimgPipe,
     TarjetasComponent,
-    LoadingComponent
+    LoadingComponent,
+    SecureDomPipe,
+    MessageComponent
   ],
   imports: [
     BrowserModule,

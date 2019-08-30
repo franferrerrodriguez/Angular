@@ -1,6 +1,7 @@
-import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { Injectable, ɵConsole } from '@angular/core';
+import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http';
 import { map } from 'rxjs/operators';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -15,62 +16,97 @@ export class SpotifyService {
   }
 
   generateToken() {
-    return new Promise(resolve => {
-      this.httpClient.get(this.url)
-      .pipe(map((data:any) => { return data.access_token; }))
-      .subscribe(token => { 
-        //console.log("Generate Token: " + token);
-        this.token = token;
-        resolve();
+    return this.httpClient.get(this.url)
+      .toPromise()
+      .then((token:any) => {
+        this.token = token.access_token;
+       })
+      .catch((e) => {
+        e.status = 500;
+        e.statusText = "KO";
+        throw e;
       });
-    });
   }
 
   async getQuery(query:string){
 
-    await this.generateToken();
-
+    try {
+      await this.generateToken();
+    } catch (e) {
+      console.log(e);
+      this.handleError(e);
+    }
+      
     const URI = `https://api.spotify.com/v1/${ query }`;
 
     let headers = new HttpHeaders({
       'Authorization': 'Bearer ' + this.token
     });
 
-    return this.httpClient.get(URI, { headers })
+    return this.httpClient.get(URI, { headers });
 
   }
 
   async getNewReleases(){
 
-    const e = await this.getQuery(`browse/new-releases?country=ES&limit=40`);
-    return e.pipe(map( (data:any) => {
-      return data.albums.items;
-    } ));
+    try {
+      const e = await this.getQuery(`browse/new-releases?country=ES&limit=40`);
+      return e.pipe(map((data:any) => {
+        return data.albums.items;
+      }));
+    } catch (e) {
+      this.handleError(e);
+    }
 
   }
 
   async searchAllArtists(search:string){
 
-    const e = await this.getQuery(`search?q=${ search }&type=artist&limit=15`);
-    return e.pipe(map( (data:any) => {
-      return data.artists.items;
-    } ));
+    try {
+      const e = await this.getQuery(`search?q=${ search }&type=artist&limit=15`);
+      return e.pipe(map((data:any) => {
+        return data.artists.items;
+      }));
+    } catch (e) {
+      this.handleError(e);
+    }
 
   }
 
   async searchArtistById(id:number){
 
-    return await this.getQuery(`artists/${ id }`);
+    try {
+      return await this.getQuery(`artists/${ id }`);
+    } catch (e) {
+      this.handleError(e);
+    }
 
   }
 
   async searchTracksByIdArtist(id:number){
 
-    const e = await this.getQuery(`artists/${ id }/top-tracks?country=es`);
-    return e.pipe(map( (data:any) => {
-      return data.tracks;
-    } ));
+    try {
+      const e = await this.getQuery(`artists/${ id }/top-tracks?country=es`);
+      return e.pipe(map((data:any) => {
+        return data.tracks;
+      }));
+    } catch (e) {
+      this.handleError(e);
+    }
 
+  }
+
+  handleError(error:HttpErrorResponse){
+
+    switch (error.status) {
+      case 401:
+        throw error;
+      case 404:
+        throw error;
+      case 500: 
+        throw error;
+    }
+    
   }
 
 }

@@ -1,3 +1,13 @@
+<app-message 
+  *ngIf="httpErrorResponse"
+  type="danger" 
+  title="Http Response Error"
+  [messages]="[
+    'Status: ' + httpErrorResponse.status, 
+    'URI: ' + httpErrorResponse.url,
+    'Message: ' + httpErrorResponse.message]">
+</app-message>
+
 <app-loading *ngIf="loading"></app-loading>
 
 <div class="row">

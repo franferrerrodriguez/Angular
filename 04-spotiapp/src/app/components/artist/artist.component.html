@@ -40,11 +40,7 @@
             <span class="badge badge-info">{{ track.name }}</span>
         </td>
         <td>
-          <a *ngIf="track.preview_url" [href]="track.preview_url" target="_blank">
-            <span class="badge badge-success">Ver preview</span>
-          </a>
-          <span *ngIf="!track.preview_url" class="badge badge-danger">No disponible</span>
-        </td>
+            <iframe [src]="track.uri | securedom:'https://open.spotify.com/embed/track/'" width="300" height="80" frameborder="0" allowtransparency="true" allow="encrypted-media"></iframe>
       </tr>
     </tbody>
   </table>

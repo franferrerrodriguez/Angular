@@ -13,6 +13,7 @@ export class ArtistComponent implements OnInit {
   private id:number;
   private artist:any = {};
   private topTracks:any[] = [];
+  private uri = "https://open.spotify.com/embed/album/2jis8I5ZUWtDqV1E0S0NgR";
 
   constructor(private route:ActivatedRoute, private spotifyService:SpotifyService) { 
     this.loading = true;
@@ -38,10 +39,14 @@ export class ArtistComponent implements OnInit {
   async getTracksByIdArtist(){
     const a = await this.spotifyService.searchTracksByIdArtist(this.id);
     a.subscribe((topTracks:any[]) => {
-      // console.log(topTracks);
+      console.log(topTracks);
       this.topTracks = topTracks;
       this.loading = false;
     });
+  }
+
+  getUri(){
+    return "https://open.spotify.com/embed/album/2jis8I5ZUWtDqV1E0S0NgR";
   }
 
 }
