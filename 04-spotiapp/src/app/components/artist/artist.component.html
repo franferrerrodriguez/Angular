@@ -40,7 +40,7 @@
             <span class="badge badge-info">{{ track.name }}</span>
         </td>
         <td>
-            <iframe [src]="track.uri | securedom:'https://open.spotify.com/embed/track/'" width="300" height="80" frameborder="0" allowtransparency="true" allow="encrypted-media"></iframe>
+          <iframe [src]="track.uri | slice:14 | securedom:'https://open.spotify.com/embed/track/'" width="300" height="80" frameborder="0" allowtransparency="true" allow="encrypted-media"></iframe>
       </tr>
     </tbody>
   </table>
